@@ -29,6 +29,14 @@ steps {
 bat'mvn install'
 
 }
+post {
+success {
+    echo 'Archieving  rtifact ..'
+    archiveArtifacts artifacts: '**/*.war'
+
+}
+
+}
 }
   }
 }

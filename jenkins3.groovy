@@ -9,7 +9,7 @@ echo 'Read for Build'
 }
 stage('Build Application'){
 steps{
-    sh 'clean package'
+    sh 'mvn clean package'
 }
 
 

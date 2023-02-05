@@ -4,28 +4,31 @@ pipeline {
         jdk 'JDK11' 
     }
     agent any
+
+
+
     stages {
-stage('Ready for Build'){
-steps{
-echo 'Read for Build'
-}
 
-}
-stage('Build Application'){
-steps{
-    sh 'mvn clean package'
-}
-
-
-post {
-success {
-    echo 'Archive artifact ..'
-    archiveArtifacts artifacts: '**/*.war'
-
+        stage ('Compile Stage') {
+steps {
+withMaven(maven : 'apache-maven-3.6.8') {
+bat'mvn clean compile'
 }
 }
-
-
+}
+stage ('Testing Stage') {
+steps {
+withMaven(maven : 'apache-maven-3.6.8') {
+bat'mvn test'
+}
+}
+}
+stage ('Install Stage') {
+steps {
+withMaven(maven : 'apache-maven-3.6.8') {
+bat'mvn install'
+}
+}
 }
   }
 }
